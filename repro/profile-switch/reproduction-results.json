@@ -1,0 +1,156 @@
+{
+  "project": "Clash Verge Rev",
+  "platform": "Windows x64",
+  "installed_tag": "v2.5.10",
+  "tag_commit": "c83f7ad529c7c9cb3d2d54a0955ef8c1b22a411b",
+  "upstream_dev_commit": "59189189763c0784bd36210e1a15d1a8e8d88764",
+  "mihomo": "v1.19.33 (go1.26.10)",
+  "interactive_report": {
+    "recording_seconds": 26.4,
+    "last_logged_step": "Load GeoSite rule: cn",
+    "elapsed_to_logged_validation_failure_seconds": 50.09
+  },
+  "offline_fixture": {
+    "profile_data": "public bundled geo assets and generated example.test rules",
+    "real_system_proxy_or_tun_used": false,
+    "naturally_stalled_original": {
+      "iteration": 4,
+      "elapsed_seconds": 125.07,
+      "pending_at_125_seconds": true,
+      "last_geosite_cn": true
+    },
+    "interleaved_offline_checks": [
+      {
+        "observation_window_seconds": 4,
+        "stock": {
+          "passes": 32,
+          "trials": 36,
+          "pending_at_window": 4
+        },
+        "single_cpu": {
+          "passes": 36,
+          "trials": 36,
+          "pending_at_window": 0
+        }
+      },
+      {
+        "observation_window_seconds": 5,
+        "stock": {
+          "passes": 96,
+          "trials": 100,
+          "pending_at_window": 4
+        },
+        "single_cpu": {
+          "passes": 100,
+          "trials": 100,
+          "pending_at_window": 0
+        }
+      }
+    ],
+    "single_cpu": "GOMAXPROCS=1 applies to the validation child on Windows when unset by the caller"
+  },
+  "navigation_integration": {
+    "ui": "production React build for v2.5.10, isolated browser",
+    "validation": "Tauri shell with real Mihomo -t; production recovery method compiled from upstream dev",
+    "other_ipc": "isolated fixture for profile state, busy responses, and system integrations",
+    "cases": "B and A finish; B then waits while the UI navigates Home and requests C. Stock local data response was released manually; fixed validation child was deliberately paused to test the full 120-second inactivity limit.",
+    "observed": {
+      "stock": {
+        "native": [
+          {
+            "target": "B",
+            "label": "B",
+            "status": "valid",
+            "ms": 380
+          },
+          {
+            "target": "A",
+            "label": "A",
+            "status": "valid",
+            "ms": 238
+          },
+          {
+            "target": "B",
+            "label": "S",
+            "status": "valid",
+            "ms": 2031
+          }
+        ],
+        "ui": {
+          "current": "B",
+          "requests": [
+            "B",
+            "A",
+            "B",
+            "C"
+          ],
+          "connectionsClosed": 3
+        }
+      },
+      "fixed": {
+        "native": [
+          {
+            "target": "B",
+            "label": "B",
+            "status": "valid",
+            "ms": 409
+          },
+          {
+            "target": "A",
+            "label": "A",
+            "status": "valid",
+            "ms": 235
+          },
+          {
+            "target": "B",
+            "label": "S",
+            "status": "invalid",
+            "kind": "timeout",
+            "ms": 120191
+          },
+          {
+            "target": "C",
+            "label": "A",
+            "status": "valid",
+            "ms": 100
+          },
+          {
+            "target": "B",
+            "label": "B",
+            "status": "valid",
+            "ms": 340
+          }
+        ],
+        "ui": {
+          "current": "B",
+          "requests": [
+            "B",
+            "A",
+            "B",
+            "C",
+            "B"
+          ],
+          "connectionsClosed": 4
+        }
+      }
+    }
+  },
+  "additional_checks": {
+    "frontend_vitest_passed": 32,
+    "focused_rust_tests_passed": 12,
+    "isolated_navigation_cases_passed": [
+      "single",
+      "queued",
+      "return-to-current",
+      "supersede",
+      "retry",
+      "busy"
+    ],
+    "stable_backport": "cargo check --locked --features clippy -p clash-verge --lib",
+    "patches_verified_against_clean_indexes": true
+  },
+  "patches": {
+    "clash-verge-profile-switch-navigation.patch": "6e10f3180ddea6b93164c5cf2d82302487b56f312cfcca75651553e6da35ad03",
+    "clash-verge-v2.5.10-profile-switch.patch": "fe964e448db44c944ba0d0ef8ad6c93774a6e35059f51d3be246cbc6263e8a97"
+  }
+}
